@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const applicationSchema = new mongoose.userSchema(
+const applicationSchema = new mongoose.Schema(
   {
     job: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Company",
+      ref: "Job",
       required: true,
     },
     applicant: {

@@ -3,11 +3,12 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import dbConnection from "./utils/db.js";
+import userRoute from "./routes/user.route.js";
 
 dotenv.config();
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT;
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -29,6 +30,9 @@ app.get("/home", (req, res) => {
     success: true,
   });
 });
+
+//apis
+app.use("/api/v1/user", userRoute);
 
 app.listen(PORT, () => {
   dbConnection();
