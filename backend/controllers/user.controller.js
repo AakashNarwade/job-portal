@@ -2,6 +2,31 @@ import { User } from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
+export const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "User fetched successfully",
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log("error-> ", error);
+    return res.status(500).json({
+      message: "Something went wrong",
+      success: false,
+    });
+  }
+};
+
 export const register = async (req, res) => {
   const { fullName, email, password, role, phoneNumber } = req.body;
   try {
